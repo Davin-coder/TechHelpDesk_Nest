@@ -1,0 +1,60 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: ${APP_CONTAINER_NAME}
+    working_dir: /usr/src/app
+    ports:
+      - "${APP_PORT}:3000"
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
+    volumes:
+      - ./.env:/usr/src/app/.env:ro
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "${APP_CPU_LIMIT}"
+          memory: ${APP_MEM_LIMIT}
+
+    networks:
+      - backend
+
+  db:
+    image: postgres:15-alpine
+    container_name: ${DB_CONTAINER_NAME}
+    restart: always
+
+    ports:
+      - "${DB_LOCAL}:${DB_PORT}"
+
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: "${DB_CPU_LIMIT}"
+          memory: ${DB_MEM_LIMIT}
+    networks:
+      - backend
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    driver: bridge
