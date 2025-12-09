@@ -20,7 +20,6 @@ import { AccessModule } from '../../access/infrastructure/access.module';
 @Module({
     imports: [
         TypeOrmModule.forFeature([RoleOrmEntity]),
-        // Para poder usar PermissionsGuard exportado por AccessModule
         forwardRef(() => AccessModule),
     ],
     controllers: [RolesController],
