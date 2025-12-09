@@ -14,6 +14,9 @@ import { JwtAuthGuard } from './security/guards/jwt-auth.guard';
 
 import { AuthController } from './http/controllers/auth.controller';
 
+import { PASSWORD_HASHER } from '../../../common/security/password-hasher.interface';
+import { BcryptPasswordHasher as BcryptPasswordHasherService } from '../../../common/security/bcrypt-password-hasher.service';
+
 @Module({
     imports: [
         UsersModule,
@@ -50,6 +53,14 @@ import { AuthController } from './http/controllers/auth.controller';
         RefreshTokenUseCase,
         GetCurrentUserUseCase,
         JwtAuthGuard,
+        {
+            provide: TOKEN_SERVICE,
+            useClass: JwtTokenService,
+        },
+        {
+            provide: PASSWORD_HASHER,
+            useClass: BcryptPasswordHasherService,
+        },
     ],
     exports: [
         TOKEN_SERVICE,
