@@ -4,6 +4,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { appConfig, databaseConfig, jwtConfig, swaggerConfig } from './config';
 import { RolesModule } from './modules/roles/infrastructure/roles.module';
 import { UsersModule } from './modules/users/infrastructure/users.module';
+import { AccessModule } from './modules/access/infrastructure/access.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { UsersModule } from './modules/users/infrastructure/users.module';
       },
     }),
     RolesModule,
-    UsersModule
+    UsersModule,
+    AccessModule
   ],
 })
 export class AppModule { }
