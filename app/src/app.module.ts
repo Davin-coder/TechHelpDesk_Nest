@@ -5,6 +5,7 @@ import { appConfig, databaseConfig, jwtConfig, swaggerConfig } from './config';
 import { RolesModule } from './modules/roles/infrastructure/roles.module';
 import { UsersModule } from './modules/users/infrastructure/users.module';
 import { AccessModule } from './modules/access/infrastructure/access.module';
+import { AuthModule } from './modules/auth/infrastructure/auth.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { AccessModule } from './modules/access/infrastructure/access.module';
     }),
     RolesModule,
     UsersModule,
-    AccessModule
+    AccessModule,
+    AuthModule
   ],
 })
-export class AppModule { }
+export class AppModule {}
