@@ -28,7 +28,7 @@ import { UsersController } from './http/controllers/users.controller';
     imports: [
         TypeOrmModule.forFeature([UserOrmEntity]),
         RolesModule,
-        AccessModule, // 👈 para usar PermissionsGuard
+        AccessModule,
     ],
     controllers: [UsersController],
     providers: [
