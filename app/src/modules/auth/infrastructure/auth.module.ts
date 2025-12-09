@@ -24,19 +24,14 @@ import { BcryptPasswordHasher as BcryptPasswordHasherService } from '../../../co
         JwtModule.registerAsync({
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => {
-                const jwtCfg = configService.get<{
-                    accessTokenSecret: string;
-                    accessTokenExpiresIn: number;
-                }>('jwt');
-                if (!jwtCfg?.accessTokenSecret) {
-                    throw new Error(
-                        'jwt.accessTokenSecret config is required for JwtModule',
-                    );
+                const accessTokenSecret = configService.get<string>('JWT_SECRET');
+                if (!accessTokenSecret) {
+                    throw new Error('JWT_SECRET env var is required');
                 }
                 return {
-                    secret: jwtCfg.accessTokenSecret,
+                    secret: accessTokenSecret,
                     signOptions: {
-                        expiresIn: jwtCfg.accessTokenExpiresIn ?? 900,
+                        expiresIn: configService.get('JWT_EXPIRES_IN') ?? '900s',
                     },
                 };
             },
