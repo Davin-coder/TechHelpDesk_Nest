@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 
 import { PERMISSIONS_METADATA_KEY, RequirePermissionsMetadata } from '../decorators/require-permissions.decorator';
-import { AuthUser } from '../auth/auth-user.interface';
+import { AuthUser } from '../types/auth-user.interface';
 import { CheckPermissionUseCase } from '../../modules/access/application/use-cases/check-permission.use-case';
 import { CheckPermissionDto } from '../../modules/access/application/dto/check-permission.dto';
 
