@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { appConfig, databaseConfig, jwtConfig, swaggerConfig } from './config';
 import { RolesModule } from './modules/roles/infrastructure/roles.module';
+import { UsersModule } from './modules/users/infrastructure/users.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { RolesModule } from './modules/roles/infrastructure/roles.module';
         };
       },
     }),
-    RolesModule
+    RolesModule,
+    UsersModule
   ],
 })
 export class AppModule { }
